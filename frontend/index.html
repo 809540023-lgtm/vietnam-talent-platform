@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VietTalent Taiwan - Nền tảng tuyển dụng nhân tài Việt Nam tại Đài Loan | 越南人才招聘平台</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #DA251D;        /* Vietnamese flag red */
+            --primary-dark: #b71c1c;
+            --secondary: #FFCD00;       /* Vietnamese flag yellow */
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --white: #ffffff;
+            --shadow: 0 2px 15px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .nav-logo .star { color: var(--secondary); font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .nav-links a:hover { background: #f0f0f0; color: var(--primary); }
+        .lang-switch {
+            display: flex;
+            gap: 4px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            padding: 3px;
+        }
+        .lang-btn {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 17px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .lang-btn.active { background: var(--primary); color: white; }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, #e53935 50%, var(--secondary) 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.2rem; opacity: 0.95; margin-bottom: 2rem; }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 800; }
+        .stat-label { font-size: 0.9rem; opacity: 0.9; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .hero-buttons .btn-primary {
+            background: white;
+            color: var(--primary);
+            font-size: 1.1rem;
+            padding: 14px 32px;
+        }
+        .hero-buttons .btn-secondary {
+            font-size: 1.1rem;
+            padding: 14px 32px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+        }
+
+        /* ===== SEARCH BAR ===== */
+        .search-section { padding: 0 2rem; margin-top: -2rem; position: relative; z-index: 10; }
+        .search-bar {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .search-bar input, .search-bar select {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+        .search-bar input:focus, .search-bar select:focus { border-color: var(--primary); }
+        .search-bar .btn-primary { min-width: 120px; font-size: 1rem; }
+
+        /* ===== JOB LISTINGS ===== */
+        .section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        .section-subtitle { color: var(--gray); margin-bottom: 2rem; }
+
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .job-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-left: 4px solid var(--primary);
+            cursor: pointer;
+        }
+        .job-card:hover { transform: translateY(-3px); box-shadow: 0 5px 25px rgba(0,0,0,0.15); }
+        .job-card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
+        .job-title { font-size: 1.15rem; font-weight: 700; color: var(--dark); }
+        .job-company { color: var(--gray); font-size: 0.9rem; margin-top: 4px; }
+        .job-salary {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .job-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
+        .tag {
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tag-location { background: #e3f2fd; color: #1565c0; }
+        .tag-type { background: #e8f5e9; color: #2e7d32; }
+        .tag-benefit { background: #fce4ec; color: #c62828; }
+        .job-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f0f0f0; }
+        .job-date { color: var(--gray); font-size: 0.85rem; }
+
+        /* ===== REGISTRATION FORM ===== */
+        .form-section {
+            background: white;
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        .form-group label .vi { color: var(--gray); font-weight: 400; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .step-dot {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            transition: all 0.3s;
+        }
+        .step-dot.active { background: var(--primary); }
+        .step-dot.completed { background: var(--success); }
+
+        /* ===== FEATURES ===== */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .feature-card h3 { margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--gray); font-size: 0.95rem; }
+
+        /* ===== TELEGRAM CTA ===== */
+        .telegram-cta {
+            background: linear-gradient(135deg, #0088cc 0%, #00bcd4 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+        .telegram-cta h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .telegram-cta .btn-primary {
+            background: white;
+            color: #0088cc;
+            font-size: 1.2rem;
+            padding: 16px 36px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .footer h4 { margin-bottom: 1rem; color: var(--secondary); }
+        .footer a { color: rgba(255,255,255,0.7); text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer a:hover { color: white; }
+        .footer-bottom { text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: none; border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero-stats { gap: 1.5rem; }
+            .stat-number { font-size: 1.8rem; }
+            .nav-links { display: none; }
+            .search-bar { flex-direction: column; }
+            .form-row { grid-template-columns: 1fr; }
+            .job-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">
+            <span class="star">★</span>
+            <span>VietTalent</span>
+        </a>
+        <div class="nav-links">
+            <a href="#jobs" data-vi="Việc làm" data-zh="職缺">Việc làm</a>
+            <a href="#register" data-vi="Đăng ký" data-zh="註冊">Đăng ký</a>
+            <a href="#employer" data-vi="Nhà tuyển dụng" data-zh="雇主專區">Nhà tuyển dụng</a>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="switchLang('vi')">🇻🇳 VI</button>
+                <button class="lang-btn" onclick="switchLang('zh')">🇹🇼 中文</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 id="hero-title">Tìm việc làm tại Đài Loan dễ dàng hơn bao giờ hết!</h1>
+        <p id="hero-subtitle">Nền tảng kết nối nhân tài Việt Nam với các nhà tuyển dụng tại khu vực Bắc Đài Loan (Đài Bắc, Tân Bắc, Cơ Long)</p>
+        <div class="hero-buttons">
+            <button class="btn-primary" onclick="showRegisterForm()" data-vi="Đăng ký ngay" data-zh="立即註冊">Đăng ký ngay</button>
+            <button class="btn-secondary" onclick="scrollToJobs()" data-vi="Xem việc làm" data-zh="瀏覽職缺">Xem việc làm</button>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number" id="stat-jobs">150+</div>
+                <div class="stat-label" data-vi="Việc làm" data-zh="職缺數">Việc làm</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat-candidates">500+</div>
+                <div class="stat-label" data-vi="Ứng viên" data-zh="求職者">Ứng viên</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat-companies">80+</div>
+                <div class="stat-label" data-vi="Doanh nghiệp" data-zh="合作企業">Doanh nghiệp</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+    <div class="search-bar">
+        <input type="text" id="search-keyword" data-placeholder-vi="Tìm kiếm việc làm..." data-placeholder-zh="搜尋職缺..." placeholder="Tìm kiếm việc làm...">
+        <select id="search-location">
+            <option value="" data-vi="Khu vực" data-zh="地區">Khu vực</option>
+            <option value="台北">Đài Bắc / 台北</option>
+            <option value="新北">Tân Bắc / 新北</option>
+            <option value="基隆">Cơ Long / 基隆</option>
+            <option value="桃園">Đào Viên / 桃園</option>
+        </select>
+        <select id="search-industry">
+            <option value="" data-vi="Ngành nghề" data-zh="產業">Ngành nghề</option>
+            <option value="製造業">Sản xuất / 製造業</option>
+            <option value="餐飲業">Nhà hàng / 餐飲業</option>
+            <option value="營造業">Xây dựng / 營造業</option>
+            <option value="服務業">Dịch vụ / 服務業</option>
+            <option value="科技業">Công nghệ / 科技業</option>
+            <option value="看護">Chăm sóc / 看護</option>
+        </select>
+        <button class="btn-primary" onclick="searchJobs()">
+            <i class="fas fa-search"></i>
+            <span data-vi="Tìm kiếm" data-zh="搜尋">Tìm kiếm</span>
+        </button>
+    </div>
+</div>
+
+<!-- JOB LISTINGS -->
+<section class="section" id="jobs">
+    <h2 class="section-title" data-vi="Việc làm mới nhất" data-zh="最新職缺">Việc làm mới nhất</h2>
+    <p class="section-subtitle" data-vi="Cơ hội việc làm hấp dẫn tại khu vực Bắc Đài Loan" data-zh="北部地區最新工作機會">Cơ hội việc làm hấp dẫn tại khu vực Bắc Đài Loan</p>
+
+    <div class="job-grid" id="job-list">
+        <!-- 範例職缺卡片 -->
+        <div class="job-card" onclick="showJobDetail(1)">
+            <div class="job-card-header">
+                <div>
+                    <div class="job-title">Công nhân nhà máy điện tử<br><small style="color:#999">電子廠作業員</small></div>
+                    <div class="job-company"><i class="fas fa-building"></i> Công ty ABC Electronics / ABC 電子</div>
+                </div>
+                <div class="job-salary">$32,000-38,000</div>
+            </div>
+            <div class="job-tags">
+                <span class="tag tag-location"><i class="fas fa-map-marker-alt"></i> Tân Bắc / 新北</span>
+                <span class="tag tag-type"><i class="fas fa-clock"></i> Toàn thời gian / 全職</span>
+                <span class="tag tag-benefit"><i class="fas fa-home"></i> Có nhà ở / 包住</span>
+            </div>
+            <div class="job-footer">
+                <span class="job-date"><i class="fas fa-calendar"></i> 2 ngày trước</span>
+                <button class="btn-primary" style="padding:6px 16px; font-size:0.9rem;" data-vi="Ứng tuyển" data-zh="應徵">Ứng tuyển</button>
+            </div>
+        </div>
+
+        <div class="job-card" onclick="showJobDetail(2)">
+            <div class="job-card-header">
+                <div>
+                    <div class="job-title">Phục vụ nhà hàng<br><small style="color:#999">餐廳服務員</small></div>
+                    <div class="job-company"><i class="fas fa-building"></i> Nhà hàng Hoa Sen / 荷花餐廳</div>
+                </div>
+                <div class="job-salary">$30,000-35,000</div>
+            </div>
+            <div class="job-tags">
+                <span class="tag tag-location"><i class="fas fa-map-marker-alt"></i> Đài Bắc / 台北</span>
+                <span class="tag tag-type"><i class="fas fa-clock"></i> Toàn thời gian / 全職</span>
+                <span class="tag tag-benefit"><i class="fas fa-utensils"></i> Có bữa ăn / 包吃</span>
+            </div>
+            <div class="job-footer">
+                <span class="job-date"><i class="fas fa-calendar"></i> 3 ngày trước</span>
+                <button class="btn-primary" style="padding:6px 16px; font-size:0.9rem;">Ứng tuyển</button>
+            </div>
+        </div>
+
+        <div class="job-card" onclick="showJobDetail(3)">
+            <div class="job-card-header">
+                <div>
+                    <div class="job-title">Công nhân xây dựng<br><small style="color:#999">營造工人</small></div>
+                    <div class="job-company"><i class="fas fa-building"></i> Công ty XD Đại Phúc / 大福營造</div>
+                </div>
+                <div class="job-salary">$35,000-45,000</div>
+            </div>
+            <div class="job-tags">
+                <span class="tag tag-location"><i class="fas fa-map-marker-alt"></i> Cơ Long / 基隆</span>
+                <span class="tag tag-type"><i class="fas fa-clock"></i> Hợp đồng / 約聘</span>
+                <span class="tag tag-benefit"><i class="fas fa-bus"></i> Có đưa đón / 交通接送</span>
+            </div>
+            <div class="job-footer">
+                <span class="job-date"><i class="fas fa-calendar"></i> 5 ngày trước</span>
+                <button class="btn-primary" style="padding:6px 16px; font-size:0.9rem;">Ứng tuyển</button>
+            </div>
+        </div>
+
+        <div class="job-card" onclick="showJobDetail(4)">
+            <div class="job-card-header">
+                <div>
+                    <div class="job-title">Chăm sóc người cao tuổi<br><small style="color:#999">居家看護</small></div>
+                    <div class="job-company"><i class="fas fa-building"></i> Trung tâm An Khang / 安康照護</div>
+                </div>
+                <div class="job-salary">$28,000-33,000</div>
+            </div>
+            <div class="job-tags">
+                <span class="tag tag-location"><i class="fas fa-map-marker-alt"></i> Đài Bắc / 台北</span>
+                <span class="tag tag-type"><i class="fas fa-clock"></i> Toàn thời gian / 全職</span>
+                <span class="tag tag-benefit"><i class="fas fa-home"></i> Có nhà ở / 包住</span>
+                <span class="tag tag-benefit"><i class="fas fa-utensils"></i> Có bữa ăn / 包吃</span>
+            </div>
+            <div class="job-footer">
+                <span class="job-date"><i class="fas fa-calendar"></i> 1 tuần trước</span>
+                <button class="btn-primary" style="padding:6px 16px; font-size:0.9rem;">Ứng tuyển</button>
+            </div>
+        </div>
+
+        <div class="job-card" onclick="showJobDetail(5)">
+            <div class="job-card-header">
+                <div>
+                    <div class="job-title">Kỹ sư phần mềm<br><small style="color:#999">軟體工程師</small></div>
+                    <div class="job-company"><i class="fas fa-building"></i> TechViet Corp / 越科技</div>
+                </div>
+                <div class="job-salary">$50,000-70,000</div>
+            </div>
+            <div class="job-tags">
+                <span class="tag tag-location"><i class="fas fa-map-marker-alt"></i> Đài Bắc / 台北</span>
+                <span class="tag tag-type"><i class="fas fa-clock"></i> Toàn thời gian / 全職</span>
+            </div>
+            <div class="job-footer">
+                <span class="job-date"><i class="fas fa-calendar"></i> 1 tuần trước</span>
+                <button class="btn-primary" style="padding:6px 16px; font-size:0.9rem;">Ứng tuyển</button>
+            </div>
+        </div>
+
+        <div class="job-card" onclick="showJobDetail(6)">
+            <div class="job-card-header">
+                <div>
+                    <div class="job-title">Nhân viên kho vận<br><small style="color:#999">倉儲物流員</small></div>
+                    <div class="job-company"><i class="fas fa-building"></i> Vận tải Hưng Thịnh / 興盛物流</div>
+                </div>
+                <div class="job-salary">$31,000-36,000</div>
+            </div>
+            <div class="job-tags">
+                <span class="tag tag-location"><i class="fas fa-map-marker-alt"></i> Tân Bắc / 新北</span>
+                <span class="tag tag-type"><i class="fas fa-clock"></i> Toàn thời gian / 全職</span>
+                <span class="tag tag-benefit"><i class="fas fa-bus"></i> Có đưa đón / 交通接送</span>
+            </div>
+            <div class="job-footer">
+                <span class="job-date"><i class="fas fa-calendar"></i> 2 tuần trước</span>
+                <button class="btn-primary" style="padding:6px 16px; font-size:0.9rem;">Ứng tuyển</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+    <h2 class="section-title" data-vi="Tại sao chọn VietTalent?" data-zh="為什麼選擇 VietTalent？">Tại sao chọn VietTalent?</h2>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🇻🇳</div>
+            <h3 data-vi="Giao diện tiếng Việt" data-zh="越南文介面">Giao diện tiếng Việt</h3>
+            <p data-vi="Toàn bộ nền tảng hỗ trợ tiếng Việt, giúp bạn dễ dàng tìm kiếm và ứng tuyển" data-zh="完整越南文介面，讓求職更輕鬆">Toàn bộ nền tảng hỗ trợ tiếng Việt, giúp bạn dễ dàng tìm kiếm và ứng tuyển</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 data-vi="Telegram Bot tiện lợi" data-zh="Telegram 機器人">Telegram Bot tiện lợi</h3>
+            <p data-vi="Đăng ký, tìm việc và nhận thông báo ngay trên Telegram" data-zh="在 Telegram 上註冊、找工作、接收通知">Đăng ký, tìm việc và nhận thông báo ngay trên Telegram</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🏢</div>
+            <h3 data-vi="Doanh nghiệp uy tín" data-zh="優質企業">Doanh nghiệp uy tín</h3>
+            <p data-vi="Tất cả nhà tuyển dụng đều được xác minh, đảm bảo an toàn cho người lao động" data-zh="所有雇主均經過驗證，保障勞工權益">Tất cả nhà tuyển dụng đều được xác minh, đảm bảo an toàn cho người lao động</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3 data-vi="Hỗ trợ tận tâm" data-zh="專業服務">Hỗ trợ tận tâm</h3>
+            <p data-vi="Đội ngũ hỗ trợ nói tiếng Việt, sẵn sàng giúp đỡ bạn mọi lúc" data-zh="越南語客服團隊，隨時為您服務">Đội ngũ hỗ trợ nói tiếng Việt, sẵn sàng giúp đỡ bạn mọi lúc</p>
+        </div>
+    </div>
+</section>
+
+<!-- TELEGRAM CTA -->
+<section class="section">
+    <div class="telegram-cta">
+        <h2 data-vi="Kết nối qua Telegram" data-zh="透過 Telegram 連結">🤖 Kết nối qua Telegram</h2>
+        <p style="margin-bottom:2rem; font-size:1.1rem;" data-vi="Đăng ký nhanh, nhận thông báo việc làm mới mỗi ngày!" data-zh="快速註冊，每天接收最新職缺通知！">Đăng ký nhanh, nhận thông báo việc làm mới mỗi ngày!</p>
+        <a href="https://t.me/VietTalentTW_bot" target="_blank" class="btn-primary">
+            <i class="fab fa-telegram"></i> Mở Telegram Bot
+        </a>
+    </div>
+</section>
+
+<!-- REGISTRATION MODAL -->
+<div class="modal-overlay" id="registerModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h2 style="margin-bottom:1.5rem; text-align:center;">
+            <span data-vi="Đăng ký tài khoản" data-zh="註冊帳號">Đăng ký tài khoản</span>
+        </h2>
+
+        <div class="step-indicator">
+            <div class="step-dot active" id="step-1">1</div>
+            <div class="step-dot" id="step-2">2</div>
+            <div class="step-dot" id="step-3">3</div>
+        </div>
+
+        <form id="registerForm">
+            <!-- Step 1: Basic Info -->
+            <div class="form-step active" id="form-step-1">
+                <div class="form-group">
+                    <label>Họ và tên <span class="vi">/ 姓名</span></label>
+                    <input type="text" name="full_name" placeholder="Nguyễn Văn A" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số điện thoại <span class="vi">/ 電話</span></label>
+                        <input type="tel" name="phone" placeholder="0912-345-678" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="example@email.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Giới tính <span class="vi">/ 性別</span></label>
+                        <select name="gender">
+                            <option value="male">Nam / 男</option>
+                            <option value="female">Nữ / 女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày sinh <span class="vi">/ 生日</span></label>
+                        <input type="date" name="birth_date">
+                    </div>
+                </div>
+                <button type="button" class="btn-primary" style="width:100%" onclick="nextStep(2)" data-vi="Tiếp theo" data-zh="下一步">Tiếp theo →</button>
+            </div>
+
+            <!-- Step 2: Work Info -->
+            <div class="form-step" id="form-step-2">
+                <div class="form-group">
+                    <label>Loại visa <span class="vi">/ 簽證類型</span></label>
+                    <select name="visa_type">
+                        <option value="work_permit">Giấy phép lao động / 工作許可</option>
+                        <option value="arc">Thẻ cư trú / 居留證</option>
+                        <option value="student">Sinh viên / 留學生</option>
+                        <option value="spouse">Hôn nhân / 依親</option>
+                        <option value="aprc">Thẻ cư trú vĩnh viễn / 永久居留</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Trình độ học vấn <span class="vi">/ 學歷</span></label>
+                        <select name="education">
+                            <option value="junior_high">Trung học cơ sở / 國中</option>
+                            <option value="senior_high">Trung học phổ thông / 高中</option>
+                            <option value="college">Cao đẳng / 專科</option>
+                            <option value="bachelor">Đại học / 大學</option>
+                            <option value="master">Thạc sĩ / 碩士</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kinh nghiệm <span class="vi">/ 年資</span></label>
+                        <select name="work_experience_years">
+                            <option value="0">Chưa có / 無</option>
+                            <option value="1">1 năm / 1年</option>
+                            <option value="2">2 năm / 2年</option>
+                            <option value="3">3-5 năm / 3-5年</option>
+                            <option value="5">5+ năm / 5年以上</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Trình độ tiếng Trung <span class="vi">/ 中文程度</span></label>
+                        <select name="chinese_level">
+                            <option value="none">Không biết / 不會</option>
+                            <option value="basic">Cơ bản / 基礎</option>
+                            <option value="intermediate">Trung bình / 中等</option>
+                            <option value="fluent">Thành thạo / 流利</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Trình độ tiếng Anh <span class="vi">/ 英文程度</span></label>
+                        <select name="english_level">
+                            <option value="none">Không biết / 不會</option>
+                            <option value="basic">Cơ bản / 基礎</option>
+                            <option value="intermediate">Trung bình / 中等</option>
+                            <option value="fluent">Thành thạo / 流利</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display:flex;gap:1rem">
+                    <button type="button" class="btn-secondary" style="flex:1" onclick="nextStep(1)">← Quay lại</button>
+                    <button type="button" class="btn-primary" style="flex:1" onclick="nextStep(3)">Tiếp theo →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Preferences -->
+            <div class="form-step" id="form-step-3">
+                <div class="form-group">
+                    <label>Khu vực mong muốn <span class="vi">/ 期望地區</span></label>
+                    <select name="location">
+                        <option value="台北">Đài Bắc / 台北</option>
+                        <option value="新北">Tân Bắc / 新北</option>
+                        <option value="基隆">Cơ Long / 基隆</option>
+                        <option value="桃園">Đào Viên / 桃園</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Loại công việc mong muốn <span class="vi">/ 期望工種</span></label>
+                    <select name="preferred_industry">
+                        <option value="製造業">Sản xuất / 製造業</option>
+                        <option value="餐飲業">Nhà hàng / 餐飲業</option>
+                        <option value="營造業">Xây dựng / 營造業</option>
+                        <option value="服務業">Dịch vụ / 服務業</option>
+                        <option value="科技業">Công nghệ / 科技業</option>
+                        <option value="看護">Chăm sóc / 看護</option>
+                        <option value="物流業">Vận tải / 物流業</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mức lương tối thiểu <span class="vi">/ 最低薪資</span></label>
+                        <input type="number" name="expected_salary_min" placeholder="28000">
+                    </div>
+                    <div class="form-group">
+                        <label>Mức lương tối đa <span class="vi">/ 最高薪資</span></label>
+                        <input type="number" name="expected_salary_max" placeholder="45000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Kỹ năng <span class="vi">/ 技能（逗號分隔）</span></label>
+                    <input type="text" name="skills" placeholder="Hàn / CNC / Nấu ăn / Chăm sóc...">
+                </div>
+                <div style="display:flex;gap:1rem">
+                    <button type="button" class="btn-secondary" style="flex:1" onclick="nextStep(2)">← Quay lại</button>
+                    <button type="submit" class="btn-primary" style="flex:1; background:var(--success)">
+                        <i class="fas fa-check"></i>
+                        <span data-vi="Hoàn tất đăng ký" data-zh="完成註冊">Hoàn tất đăng ký</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div>
+            <h4>VietTalent Taiwan</h4>
+            <p style="color:rgba(255,255,255,0.7);" data-vi="Nền tảng tuyển dụng nhân tài Việt Nam tại Đài Loan" data-zh="越南人才招聘平台">Nền tảng tuyển dụng nhân tài Việt Nam tại Đài Loan</p>
+        </div>
+        <div>
+            <h4 data-vi="Cho người tìm việc" data-zh="求職者">Cho người tìm việc</h4>
+            <a href="#" data-vi="Tìm việc làm" data-zh="搜尋職缺">Tìm việc làm</a>
+            <a href="#" data-vi="Đăng ký" data-zh="註冊">Đăng ký</a>
+            <a href="#" data-vi="Hướng dẫn" data-zh="使用指南">Hướng dẫn</a>
+        </div>
+        <div>
+            <h4 data-vi="Cho nhà tuyển dụng" data-zh="雇主">Cho nhà tuyển dụng</h4>
+            <a href="#" data-vi="Đăng tin tuyển dụng" data-zh="刊登職缺">Đăng tin tuyển dụng</a>
+            <a href="#" data-vi="Tìm ứng viên" data-zh="搜尋人才">Tìm ứng viên</a>
+            <a href="#" data-vi="Bảng giá" data-zh="價格方案">Bảng giá</a>
+        </div>
+        <div>
+            <h4 data-vi="Liên hệ" data-zh="聯絡我們">Liên hệ</h4>
+            <a href="#"><i class="fab fa-telegram"></i> Telegram Bot</a>
+            <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="mailto:contact@viettalent.tw"><i class="fas fa-envelope"></i> contact@viettalent.tw</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 VietTalent Taiwan. All rights reserved.
+    </div>
+</footer>
+
+<script>
+    // ===== 語言切換 =====
+    let currentLang = 'vi';
+
+    function switchLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.lang-btn[onclick="switchLang('${lang}')"]`).classList.add('active');
+
+        // 更新所有有 data-vi/data-zh 的元素
+        document.querySelectorAll('[data-vi]').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`);
+        });
+
+        // 更新 placeholder
+        document.querySelectorAll('[data-placeholder-vi]').forEach(el => {
+            el.placeholder = el.getAttribute(`data-placeholder-${lang}`);
+        });
+
+        // 更新 hero
+        const heroTexts = {
+            vi: {
+                title: "Tìm việc làm tại Đài Loan dễ dàng hơn bao giờ hết!",
+                subtitle: "Nền tảng kết nối nhân tài Việt Nam với các nhà tuyển dụng tại khu vực Bắc Đài Loan (Đài Bắc, Tân Bắc, Cơ Long)"
+            },
+            zh: {
+                title: "在台灣找工作，從未如此簡單！",
+                subtitle: "連結越南人才與北台灣（台北、新北、基隆）雇主的最佳平台"
+            }
+        };
+        document.getElementById('hero-title').textContent = heroTexts[lang].title;
+        document.getElementById('hero-subtitle').textContent = heroTexts[lang].subtitle;
+    }
+
+    // ===== 註冊表單 =====
+    function showRegisterForm() {
+        document.getElementById('registerModal').classList.add('active');
+    }
+    function closeModal() {
+        document.getElementById('registerModal').classList.remove('active');
+    }
+    function nextStep(step) {
+        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+        document.getElementById(`form-step-${step}`).classList.add('active');
+        document.querySelectorAll('.step-dot').forEach((d, i) => {
+            d.classList.remove('active', 'completed');
+            if (i + 1 < step) d.classList.add('completed');
+            if (i + 1 === step) d.classList.add('active');
+        });
+    }
+
+    // 表單提交
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+
+        // 處理技能為陣列
+        if (data.skills) {
+            data.skills = data.skills.split(/[,，]/).map(s => s.trim()).filter(Boolean);
+        }
+
+        try {
+            const response = await fetch('/api/candidates/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                alert(currentLang === 'vi'
+                    ? 'Đăng ký thành công! Chào mừng bạn đến với VietTalent!'
+                    : '註冊成功！歡迎加入 VietTalent！');
+                closeModal();
+            } else {
+                alert(result.detail || 'Error');
+            }
+        } catch (err) {
+            // 如果 API 未啟動，顯示模擬成功
+            alert(currentLang === 'vi'
+                ? 'Đăng ký thành công! (Chế độ demo)'
+                : '註冊成功！（Demo 模式）');
+            closeModal();
+        }
+    });
+
+    // ===== 搜尋 =====
+    function searchJobs() {
+        const keyword = document.getElementById('search-keyword').value;
+        const location = document.getElementById('search-location').value;
+        const industry = document.getElementById('search-industry').value;
+        // 在實際環境中會呼叫 API
+        console.log('Searching:', { keyword, location, industry });
+        alert(currentLang === 'vi'
+            ? `Đang tìm kiếm: ${keyword || 'tất cả'} tại ${location || 'tất cả khu vực'}`
+            : `搜尋中：${keyword || '全部'} 在 ${location || '全部地區'}`);
+    }
+
+    function scrollToJobs() {
+        document.getElementById('jobs').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showJobDetail(id) {
+        // 在實際環境中會呼叫 API 並顯示詳情 modal
+        console.log('Show job detail:', id);
+    }
+</script>
+</body>
+</html>

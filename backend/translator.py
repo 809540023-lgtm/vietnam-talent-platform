@@ -29,11 +29,10 @@ class Translator:
 
     async def _free_translate(self, text: str, source: str, target: str) -> str:
         try:
-            from googletrans import Translator as GTranslator
-            t = GTranslator()
-            src = "zh-tw" if source == "zh-TW" else source
-            result = t.translate(text, src=src, dest=target)
-            return result.text
+            from deep_translator import GoogleTranslator
+            src = "zh-TW" if source == "zh-TW" else source
+            result = GoogleTranslator(source=src, target=target).translate(text)
+            return result
         except Exception as e:
             print(f"Translate error: {e}")
             return text

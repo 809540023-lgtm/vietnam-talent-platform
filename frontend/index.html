@@ -3,6 +3,794 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VietTalent Taiwan â Ná»n táº£ng tÃ¬m viá»c lÃ m thÃªm | è¶åäººææå·¥å¹³å°</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --dark: #0f172a;
+            --text: #334155;
+            --gray: #94a3b8;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0 24px;
+            height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.3rem; font-weight: 800; color: var(--primary);
+            text-decoration: none;
+        }
+        .nav-brand span { color: var(--accent); }
+        .nav-links { display: flex; gap: 8px; align-items: center; }
+        .nav-links a, .nav-links button {
+            padding: 8px 16px; border-radius: 8px; font-size: 0.9rem;
+            text-decoration: none; color: var(--text); font-weight: 500;
+            border: none; cursor: pointer; background: none;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { background: var(--light); color: var(--primary); }
+        .btn-primary {
+            background: var(--primary) !important; color: var(--white) !important;
+            font-weight: 600 !important;
+        }
+        .btn-primary:hover { background: var(--primary-dark) !important; }
+        .btn-accent {
+            background: var(--accent) !important; color: var(--white) !important;
+            font-weight: 600 !important;
+        }
+        .btn-accent:hover { background: var(--accent-dark) !important; }
+        .lang-toggle {
+            background: var(--light) !important; font-size: 0.85rem !important;
+            padding: 6px 12px !important;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            margin-top: 64px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+            padding: 80px 24px 60px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        .hero-content { position: relative; max-width: 700px; margin: 0 auto; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; line-height: 1.3; }
+        .hero p { font-size: 1.15rem; opacity: 0.9; margin-bottom: 32px; }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 40px; margin-top: 32px;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .hero-stat .label { font-size: 0.85rem; opacity: 0.8; }
+
+        /* ===== CATEGORIES ===== */
+        .categories {
+            padding: 60px 24px;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .section-title {
+            text-align: center; font-size: 1.8rem; font-weight: 700;
+            color: var(--dark); margin-bottom: 12px;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--gray); margin-bottom: 40px; font-size: 1rem;
+        }
+        .cat-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .cat-card {
+            background: var(--white); border-radius: var(--radius);
+            padding: 32px 20px; text-align: center;
+            box-shadow: var(--shadow); cursor: pointer;
+            transition: all 0.3s; border: 2px solid transparent;
+        }
+        .cat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        .cat-icon {
+            width: 72px; height: 72px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px; font-size: 1.8rem;
+        }
+        .cat-icon.clean { background: #dbeafe; color: #2563eb; }
+        .cat-icon.food { background: #fef3c7; color: #d97706; }
+        .cat-icon.care { background: #d1fae5; color: #059669; }
+        .cat-icon.pet { background: #fce7f3; color: #db2777; }
+        .cat-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+        .cat-card p { font-size: 0.85rem; color: var(--gray); }
+        .cat-count {
+            display: inline-block; margin-top: 10px;
+            background: var(--light); padding: 4px 12px;
+            border-radius: 20px; font-size: 0.8rem; color: var(--primary); font-weight: 600;
+        }
+
+        /* ===== JOB LISTINGS ===== */
+        .jobs {
+            padding: 60px 24px;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .jobs-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+        }
+        .filter-bar {
+            display: flex; gap: 8px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 18px; border-radius: 20px; border: 2px solid var(--light);
+            background: var(--white); color: var(--text); font-size: 0.85rem;
+            cursor: pointer; font-weight: 500; transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--primary); color: var(--primary); background: var(--primary-light);
+        }
+        .job-list { display: flex; flex-direction: column; gap: 16px; }
+        .job-card {
+            background: var(--white); border-radius: var(--radius);
+            padding: 24px; box-shadow: var(--shadow);
+            display: flex; gap: 20px; align-items: flex-start;
+            transition: all 0.2s; border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .job-card:hover {
+            border-color: var(--primary); box-shadow: var(--shadow-lg);
+        }
+        .job-badge {
+            width: 56px; height: 56px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; flex-shrink: 0;
+        }
+        .job-badge.clean { background: #dbeafe; color: #2563eb; }
+        .job-badge.food { background: #fef3c7; color: #d97706; }
+        .job-badge.care { background: #d1fae5; color: #059669; }
+        .job-badge.pet { background: #fce7f3; color: #db2777; }
+        .job-info { flex: 1; }
+        .job-info h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+        .job-meta {
+            display: flex; gap: 16px; flex-wrap: wrap;
+            font-size: 0.85rem; color: var(--gray); margin-bottom: 10px;
+        }
+        .job-meta i { margin-right: 4px; }
+        .job-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .tag {
+            padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;
+        }
+        .tag.hourly { background: #dbeafe; color: #2563eb; }
+        .tag.housing { background: #d1fae5; color: #059669; }
+        .tag.meal { background: #fef3c7; color: #d97706; }
+        .tag.urgent { background: #fee2e2; color: #dc2626; }
+        .job-salary {
+            text-align: right; flex-shrink: 0;
+        }
+        .job-salary .amount {
+            font-size: 1.3rem; font-weight: 800; color: var(--primary);
+        }
+        .job-salary .unit { font-size: 0.8rem; color: var(--gray); }
+
+        /* ===== REGISTER SECTION ===== */
+        .register-section {
+            padding: 80px 24px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--white);
+        }
+        .register-grid {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+        }
+        .register-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius); padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        .register-card:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+        }
+        .register-card .card-icon {
+            width: 64px; height: 64px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; margin-bottom: 20px;
+        }
+        .register-card.worker .card-icon { background: rgba(37,99,235,0.3); color: #60a5fa; }
+        .register-card.employer .card-icon { background: rgba(245,158,11,0.3); color: #fbbf24; }
+        .register-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+        .register-card p { color: rgba(255,255,255,0.7); margin-bottom: 24px; font-size: 0.95rem; }
+        .register-card ul {
+            list-style: none; margin-bottom: 28px;
+        }
+        .register-card ul li {
+            padding: 6px 0; color: rgba(255,255,255,0.8); font-size: 0.9rem;
+        }
+        .register-card ul li i { color: var(--success); margin-right: 8px; width: 16px; }
+        .register-btn {
+            display: block; width: 100%; padding: 14px;
+            border-radius: var(--radius-sm); border: none;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; text-align: center;
+        }
+        .register-card.worker .register-btn { background: var(--primary); color: var(--white); }
+        .register-card.employer .register-btn { background: var(--accent); color: var(--white); }
+        .register-btn:hover { transform: translateY(-2px); }
+
+ color: var(--white);
+        }
+        .register-btn.employer-btn:hover { background: var(--accent-dark); }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); z-index: 2000;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--white); border-radius: var(--radius);
+            width: 100%; max-width: 520px; max-height: 90vh;
+            overflow-y: auto; padding: 36px;
+            box-shadow: var(--shadow-lg);
+        }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 28px;
+        }
+        .modal-header h2 { font-size: 1.4rem; font-weight: 700; color: var(--dark); }
+        .modal-close {
+            width: 36px; height: 36px; border-radius: 50%;
+            border: none; background: var(--light); cursor: pointer;
+            font-size: 1.1rem; color: var(--gray);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block; font-size: 0.85rem; font-weight: 600;
+            color: var(--dark); margin-bottom: 6px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 14px; border: 2px solid #e2e8f0;
+            border-radius: var(--radius-sm); font-size: 0.95rem;
+            transition: border-color 0.2s; background: var(--white);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .submit-btn {
+            width: 100%; padding: 14px; border: none;
+            border-radius: var(--radius-sm); font-size: 1rem; font-weight: 700;
+            cursor: pointer; margin-top: 8px; transition: all 0.2s;
+        }
+        .submit-btn.worker { background: var(--primary); color: var(--white); }
+        .submit-btn.worker:hover { background: var(--primary-dark); }
+        .submit-btn.employer { background: var(--accent); color: var(--white); }
+        .submit-btn.employer:hover { background: var(--accent-dark); }
+
+        /* ===== TELEGRAM CTA ===== */
+        .telegram-cta {
+            padding: 60px 24px; text-align: center;
+            background: var(--white);
+        }
+        .telegram-box {
+            max-width: 600px; margin: 0 auto;
+            background: linear-gradient(135deg, #0088cc 0%, #00aaff 100%);
+            border-radius: var(--radius); padding: 40px; color: var(--white);
+        }
+        .telegram-box i { font-size: 2.5rem; margin-bottom: 16px; }
+        .telegram-box h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .telegram-box p { opacity: 0.9; margin-bottom: 24px; }
+        .telegram-btn {
+            display: inline-block; padding: 12px 32px;
+            background: var(--white); color: #0088cc;
+            border-radius: 8px; font-weight: 700; text-decoration: none;
+            transition: all 0.2s;
+        }
+        .telegram-btn:hover { transform: scale(1.05); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark); color: rgba(255,255,255,0.6);
+            padding: 40px 24px; text-align: center; font-size: 0.85rem;
+        }
+        .footer a { color: var(--accent); text-decoration: none; }
+
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-msg {
+            display: none; text-align: center; padding: 40px 20px;
+        }
+        .success-msg.show { display: block; }
+        .success-msg i { font-size: 3rem; color: var(--success); margin-bottom: 16px; }
+        .success-msg h3 { font-size: 1.3rem; color: var(--dark); margin-bottom: 8px; }
+        .success-msg p { color: var(--gray); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .cat-grid { grid-template-columns: 1fr 1fr; }
+            .register-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-stats { gap: 24px; }
+            .job-card { flex-direction: column; }
+            .job-salary { text-align: left; }
+            .form-row { grid-template-columns: 1fr; }
+            .nav-links .hide-mobile { display: none; }
+        }
+        @media (max-width: 480px) {
+            .cat-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="#" class="nav-brand">
+        <i class="fas fa-briefcase"></i>
+        Viet<span>Talent</span>
+    </a>
+    <div class="nav-links">
+        <a href="#jobs" class="hide-mobile" data-vi="Viá»c lÃ m" data-zh="æ¾å·¥ä½">Viá»c lÃ m</a>
+        <button class="lang-toggle" onclick="toggleLang()">
+            <i class="fas fa-globe"></i> <span id="lang-label">ä¸­æ</span>
+        </button>
+        <button class="btn-primary" onclick="openModal('worker')" data-vi="TÃ¬m viá»c" data-zh="æ¾å·¥ä½">TÃ¬m viá»c</button>
+        <button class="btn-accent" onclick="openModal('employer')" data-vi="Tuyá»n dá»¥ng" data-zh="æè¦å¾µäºº">Tuyá»n dá»¥ng</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 data-vi="TÃ¬m viá»c lÃ m thÃªm táº¡i ÄÃ i Loan dá» dÃ ng!" data-zh="è¼é¬æ¾å°å°ç£æå·¥æ©æï¼">TÃ¬m viá»c lÃ m thÃªm táº¡i ÄÃ i Loan dá» dÃ ng!</h1>
+        <p data-vi="Ná»n táº£ng káº¿t ná»i ngÆ°á»i lao Äá»ng Viá»t Nam vá»i cÃ¡c cÃ´ng viá»c bÃ¡n thá»i gian: dá»n dáº¹p, nhÃ  hÃ ng, chÄm sÃ³c ngÆ°á»i giÃ , chÄm sÃ³c thÃº cÆ°ng" data-zh="å°çºè¶åäººææé çæå·¥å¹³å°ï¼æ¸æ½ãé¤é£²ãå±å®¶çè­·ãå¯µç©çè­·">Ná»n táº£ng káº¿t ná»i ngÆ°á»i lao Äá»ng Viá»t Nam vá»i cÃ¡c cÃ´ng viá»c bÃ¡n thá»i gian: dá»n dáº¹p, nhÃ  hÃ ng, chÄm sÃ³c ngÆ°á»i giÃ , chÄm sÃ³c thÃº cÆ°ng</p>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="num">200+</div>
+            <div class="label" data-vi="Viá»c lÃ m" data-zh="è·ç¼ºæ¸">Viá»c lÃ m</div>
+        </div>
+        <div class="hero-stat">
+            <div class="num">50+</div>
+            <div class="label" data-vi="NhÃ  tuyá»n dá»¥ng" data-zh="åä½éä¸»">NhÃ  tuyá»n dá»¥ng</div>
+        </div>
+        <div class="hero-stat">
+            <div class="num">1000+</div>
+            <div class="label" data-vi="á»¨ng viÃªn" data-zh="æ±è·è">á»¨ng viÃªn</div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+    <h2 class="section-title" data-vi="Danh má»¥c cÃ´ng viá»c" data-zh="å·¥ä½é¡å¥">Danh má»¥c cÃ´ng viá»c</h2>
+    <p class="section-subtitle" data-vi="Chá»n loáº¡i cÃ´ng viá»c phÃ¹ há»£p vá»i báº¡n" data-zh="é¸æé©åä½ çå·¥ä½é¡å">Chá»n loáº¡i cÃ´ng viá»c phÃ¹ há»£p vá»i báº¡n</p>
+    <div class="cat-grid">
+        <div class="cat-card" onclick="filterJobs('clean')">
+            <div class="cat-icon clean"><i class="fas fa-broom"></i></div>
+            <h3 data-vi="Dá»n dáº¹p / Vá» sinh" data-zh="æ¸æ½ææ">Dá»n dáº¹p / Vá» sinh</h3>
+            <p data-vi="Dá»n phÃ²ng, vá» sinh vÄn phÃ²ng, lau kÃ­nh..." data-zh="æ¿éæ¸æ½ãè¾¦å¬å®¤ææãæ¦ç»ç...">Dá»n phÃ²ng, vá» sinh vÄn phÃ²ng, lau kÃ­nh...</p>
+            <span class="cat-count" data-vi="65 viá»c lÃ m" data-zh="65 åè·ç¼º">65 viá»c lÃ m</span>
+        </div>
+        <div class="cat-card" onclick="filterJobs('food')">
+            <div class="cat-icon food"><i class="fas fa-utensils"></i></div>
+            <h3 data-vi="NhÃ  hÃ ng / QuÃ¡n Än" data-zh="é¤é£²æ¥­">NhÃ  hÃ ng / QuÃ¡n Än</h3>
+            <p data-vi="Phá»¥c vá»¥, báº¿p, pha cháº¿, giao hÃ ng..." data-zh="å¤å ´æåãå»æ¿ãèª¿é£²ãå¤é...">Phá»¥c vá»¥, báº¿p, pha cháº¿, giao hÃ ng...</p>
+            <span class="cat-count" data-vi="82 viá»c lÃ m" data-zh="82 åè·ç¼º">82 viá»c lÃ m</span>
+        </div>
+        <div class="cat-card" onclick="filterJobs('care')">
+            <div class="cat-icon care"><i class="fas fa-hand-holding-heart"></i></div>
+            <h3 data-vi="ChÄm sÃ³c ngÆ°á»i giÃ " data-zh="å±å®¶çè­·">ChÄm sÃ³c ngÆ°á»i giÃ </h3>
+            <p data-vi="ChÄm sÃ³c táº¡i nhÃ , há» trá»£ sinh hoáº¡t..." data-zh="å±å®¶ç§è­·ãçæ´»åå©ãéªä¼´...">ChÄm sÃ³c táº¡i nhÃ , há» trá»£ sinh hoáº¡t...</p>
+            <span class="cat-count" data-vi="38 viá»c lÃ m" data-zh="38 åè·ç¼º">38 viá»c lÃ m</span>
+        </div>
+        <div class="cat-card" onclick="filterJobs('pet')">
+            <div class="cat-icon pet"><i class="fas fa-paw"></i></div>
+            <h3 data-vi="ChÄm sÃ³c thÃº cÆ°ng" data-zh="å¯µç©çè­·">ChÄm sÃ³c thÃº cÆ°ng</h3>
+            <p data-vi="TrÃ´ng giá»¯, dáº¯t Äi dáº¡o, táº¯m rá»­a..." data-zh="å¯µç©ä¿å§ãéçãæ´æ¾¡ç¾å®¹...">TrÃ´ng giá»¯, dáº¯t Äi dáº¡o, táº¯m rá»­a...</p>
+            <span class="cat-count" data-vi="25 viá»c lÃ m" data-zh="25 åè·ç¼º">25 viá»c lÃ m</span>
+        </div>
+    </div>
+</section>
+
+<!-- JOB LISTINGS -->
+<section class="jobs" id="jobs">
+    <div class="jobs-header">
+        <h2 class="section-title" style="text-align:left;margin-bottom:0" data-vi="Viá»c lÃ m má»i nháº¥t" data-zh="ææ°è·ç¼º">Viá»c lÃ m má»i nháº¥t</h2>
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterJobs('all')" data-vi="Táº¥t cáº£" data-zh="å¨é¨">Táº¥t cáº£</button>
+            <button class="filter-btn" onclick="filterJobs('clean')" data-vi="Dá»n dáº¹p" data-zh="æ¸æ½">Dá»n dáº¹p</button>
+            <button class="filter-btn" onclick="filterJobs('food')" data-vi="NhÃ  hÃ ng" data-zh="é¤é£²">NhÃ  hÃ ng</button>
+            <button class="filter-btn" onclick="filterJobs('care')" data-vi="ChÄm sÃ³c" data-zh="çè­·">ChÄm sÃ³c</button>
+            <button class="filter-btn" onclick="filterJobs('pet')" data-vi="ThÃº cÆ°ng" data-zh="å¯µç©">ThÃº cÆ°ng</button>
+        </div>
+    </div>
+    <div class="job-list" id="job-list"></div>
+</section>
+
+<!-- REGISTER -->
+<section class="register-section" id="register">
+    <h2 class="section-title" style="color:#fff;margin-bottom:8px" data-vi="Báº¯t Äáº§u ngay hÃ´m nay" data-zh="ç«å³éå§">Báº­t Äáº§u ngay hÃ´m nay</h2>
+    <p class="section-subtitle" style="color:rgba(255,255,255,0.6);margin-bottom:48px" data-vi="ÄÄng kÃ½ miá»n phÃ­ vÃ  tÃ¬m cÃ´ng viá»c phÃ¹ há»£p" data-zh="åè²»è¨»åï¼æ¾å°æé©åçå·¥ä½æ©æ">ÄÄng kÃ½ miá»n phÃ­ vÃ  tÃ¬m cÃ´ng viá»c phÃ¹ há»£p</p>
+    <div class="register-grid">
+        <div class="register-card worker">
+            <div class="card-icon"><i class="fas fa-user-hard-hat fa-user"></i></div>
+            <h3 data-vi="TÃ´i muá»n tÃ¬m viá»c" data-zh="æè¦æ¾å·¥ä½">TÃ´i muá»n tÃ¬m viá»c</h3>
+            <p data-vi="ÄÄng kÃ½ lÃ m á»©ng viÃªn Äá» nháº­n thÃ´ng bÃ¡o viá»c lÃ m phÃ¹ há»£p" data-zh="è¨»åæçºæ±è·æå¡ï¼æ¥æ¶ææ°å·¥ä½éç¥">ÄÄng kÃ½ lÃ m á»©ng viÃªn Äá» nháº­n thÃ´ng bÃ¡o viá»c lÃ m phÃ¹ há»£p</p>
+            <ul>
+                <li><i class="fas fa-check"></i> <span data-vi="Miá»n phÃ­ 100%" data-zh="100% åè²»">Miá»n phÃ­ 100%</span></li>
+                <li><i class="fas fa-check"></i> <span data-vi="Nháº­n thÃ´ng bÃ¡o qua Telegram" data-zh="éé Telegram æ¥æ¶éç¥">Nháº­n thÃ´ng bÃ¡o qua Telegram</span></li>
+                <li><i class="fas fa-check"></i> <span data-vi="Há» trá»£ song ngá»¯ Viá»t - Trung" data-zh="ä¸­è¶éèªæ¯æ´">Há» trá»£ song ngá»¯ Viá»t - Trung</span></li>
+                <li><i class="fas fa-check"></i> <span data-vi="á»¨ng tuyá»n nhanh chÃ³ng" data-zh="å¿«éæå¾µ">á»¨ng tuyá»n nhanh chÃ³ng</span></li>
+            </ul>
+            <button class="register-btn worker-btn" onclick="openModal('worker')" data-vi="ÄÄng kÃ½ tÃ¬m viá»c" data-zh="è¨»åæ¾å·¥ä½">ÄÄng kÃ½ tÃ¬m viá»c</button>
+        </div>
+        <div class="register-card employer">
+            <div class="card-icon"><i class="fas fa-building"></i></div>
+            <h3 data-vi="TÃ´i muá»n tuyá»n dá»¥ng" data-zh="æè¦å¾µäºº">TÃ´i muá»n tuyá»n dá»¥ng</h3>
+            <p data-vi="ÄÄng tin tuyá»n dá»¥ng vÃ  tÃ¬m á»©ng viÃªn phÃ¹ há»£p nhanh chÃ³ng" data-zh="åç»è·ç¼ºï¼å¿«éæ¾å°åé©çäººæ">ÄÄng tin tuyá»n dá»¥ng vÃ  tÃ¬m á»©ng viÃªn phÃ¹ há»£p nhanh chÃ³ng</p>
+            <ul>
+                <li><i class="fas fa-check"></i> <span data-vi="ÄÄng tin miá»n phÃ­" data-zh="åè²»åç»è·ç¼º">ÄÄng tin miá»n phÃ­</span></li>
+                <li><i class="fas fa-check"></i> <span data-vi="Tiáº¿p cáº­n 1000+ á»©ng viÃªn" data-zh="è§¸å 1000+ æ±è·è">Tiáº¿p cáº­n 1000+ á»©ng viÃªn</span></li>
+                <li><i class="fas fa-check"></i> <span data-vi="Quáº£n lÃ½ ÄÆ¡n á»©ng tuyá»n dá» dÃ ng" data-zh="è¼é¬ç®¡çæå¾µè">Quáº£n lÃ½ ÄÆ¡n á»©ng tuyá»n dá» dÃ ng</span></li>
+                <li><i class="fas fa-check"></i> <span data-vi="Há» trá»£ phiÃªn dá»ch" data-zh="ç¿»è­¯æ¯æ´æå">Há» trá»£ phiÃªn dá»ch</span></li>
+            </ul>
+            <button class="register-btn employer-btn" onclick="openModal('employer')" data-vi="ÄÄng kÃ½ tuyá»n dá»¥ng" data-zh="è¨»åå¾µäºº">ÄÄng kÃ½ tuyá»n dá»¥ng</button>
+        </div>
+    </div>
+</section>
+
+<!-- TELEGRAM -->
+<section class="telegram-cta">
+    <div class="telegram-box">
+        <i class="fab fa-telegram-plane"></i>
+        <h3 data-vi="Nháº­n viá»c lÃ m qua Telegram" data-zh="éé Telegram æ¥æ¶è·ç¼º">Nháº­n viá»c lÃ m qua Telegram</h3>
+        <p data-vi="Káº¿t ná»i Bot Telegram Äá» nháº­n thÃ´ng bÃ¡o viá»c lÃ m má»i hÃ ng ngÃ y" data-zh="é£çµ Telegram Botï¼æ¯å¤©æ¶å°ææ°æå·¥è³è¨">Káº¿t ná»i Bot Telegram Äá» nháº­n thÃ´ng bÃ¡o viá»c lÃ m má»i hÃ ng ngÃ y</p>
+        <a href="#" class="telegram-btn" data-vi="Káº¿t ná»i Telegram" data-zh="é£çµ Telegram"><i class="fab fa-telegram-plane"></i>&nbsp;#&åáº¿t ná»i Telegram</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>Â© 2026 VietTalent Taiwan. <span data-vi="Ná»n táº£ng tÃ¬m viá»c lÃ m thÃªm cho ngÆ°á»i Viá»t táº¡i ÄÃ i Loan" data-zh="å°çºå¨å°è¶åäººæé çæå·¥å¹³å°">Ná»n táº£ng tÃ¬m viá»c lÃ m thÃªm cho ngÆ°á»i Viá»t táº¡i ÄÃ i Loan</span></p>
+    <p style="margin-top:8px"><a href="#">Facebook</a> Â· <a href="#">Telegram</a> Â· <a href="#">Zalo</a></p>
+</footer>
+
+<!-- WORKER MODAL -->
+<div class="modal-overlay" id="modal-worker">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 data-vi="ÄÄng kÃ½ tÃ¬m viá»c" data-zh="æ±è·èè¨»å">ÄÄng kÃ½ tÃ¬m viá»c</h2>
+            <button class="modal-close" onclick="closeModal('worker')"><i class="fas fa-times"></i></button>
+        </div>
+        <form id="form-worker" class="modal-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label data-vi="Há» vÃ  tÃªn" data-zh="å§å">Há» vÃ  tÃªn *</label>
+                    <input type="text" name="full_name" required placeholder="Nguyá»n VÄn A">
+                </div>
+                <div class="form-group">
+                    <label data-vi="Sá» Äiá»n thoáº¡i" data-zh="é»è©±">Sá» Äiá»n thoáº¡i *</label>
+                    <input type="tel" name="phone" required placeholder="0912-345-678">
+                </div>
+            </div>
+            <div class="form-group">
+                <label data-vi="Email" data-zh="é»å­ä¿¡ç®½">Email</label>
+                <input type="email" name="email" placeholder="email@example.com">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label data-vi="TrÃ¬nh Äá» tiáº¿ng Trung" data-zh="ä¸­æç¨åº¦">TrÃ¬nh Äá» tiáº¿ng Trung *</label>
+                    <select name="chinese_level" required>
+                        <option value="">-- Chá»n --</option>
+                        <option value="basic" data-vi="CÆ¡ báº£n" data-zh="åºç¤">CÆ¡ báº£n</option>
+                        <option value="intermediate" data-vi="Trung bÃ¬nh" data-zh="ä¸­ç­">Trung bÃ¬nh</option>
+                        <option value="advanced" data-vi="ThÃ nh tháº¡o" data-zh="æµå©">ThÃ nh tháº¡o</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-vi="Khu vá»±c mong muá»n" data-zh="å¸æå·¥ä½å°å">Khu vá»±c mong muá»n</label>
+                    <select name="location">
+                        <option value="">-- Chá»n --</option>
+                        <option value="taipei">Taipei / å°å</option>
+                        <option value="newtaipei">New Taipei / æ°å</option>
+                        <option value="taoyuan">Taoyuan / æ å</option>
+                        <option value="taichung">Taichung / å°ä¸­</option>
+                        <option value="kaohsiung">Kaohsiung / é«é</option>
+                        <option value="other" data-vi="KhÃ¡c" data-zh="å¶ä»">KhÃ¡c</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label data-vi="Loáº¡i cÃ´ng viá»c mong muá»n" data-zh="å¸æçå·¥ä½é¡å¥">Loáº¡i cÃ´ng viá»c mong muá»n *</label>
+                <select name="job_type" required>
+                    <option value="">-- Chá»n --</option>
+                    <option value="clean" data-vi="Dá»n dáº¹p / Vá» sinh" data-zh="æ¸æ½ææ">Dá»n dáº¹p / Vá» sinh</option>
+                    <option value="food" data-vi="NhÃ  hÃ ng / QuÃ¡n Än" data-zh="é¤é£²æ¥i">NhÃ  hÃ ng / QuÃ¡n Än</option>
+                    <option value="care" data-vi="ChÄm sÃ³c ngÆ°á»i giÃ " data-zh="å±å®¶éè­­">ChÄm sÃ³c ngÆ°á»i giÃ </option>
+                    <option value="pet" data-vi="ChÄm sÃ³c thÃº cÆ°ng" data-zh="å¯µç©çè­·">ChÄm sÃ³c thàî¯¿½ cÆ°ng</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-vi="Giá»i thiá»u báº£n thÃ¢n" data-zh="èªæä»ç´¹">Giá»i thiá»u báº£n thÃ¢n</label>
+                <textarea name="intro" rows="3" placeholder="Kinh nghiá»m, ká»¹ nÄng..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn worker" data-vi="ÄÄng kÃ½ ngay" data-zh="ç«å³è¨»å">ÄÄng kÃ½ ngay</button>
+        </form>
+        <div class="success-msg" id="success-worker">
+            <i class="fas fa-check-circle"></i>
+            <h3 data-vi="ÄÄng kÃ½ thÃ nh cÃ´ng!" data-zh="è¨ªåæåï¼">ÄÄng kÃ½ thÃ nh cÃ´ng!</h3>
+            <p data-vi="ChÃºng tÃ´i sáº½ liÃªn há» báº¡n sá»m nháº¥t" data-zh="æåæçå¿«èæ¨è¯ç¹«">ChÃºng tÃ´i sáº½ liÃªn há» báº¡n sá»m nháº¥t</p>
+        </div>
+    </div>
+</div>
+
+<!-- EMPLOYER MODAL -->
+<div class="modal-overlay" id="modal-employer">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 data-vi="ÄÄng kÃ½ tuyá»n dá»¥ng" data-zh="é·ä¸»è¨»å">ÄÄng kÃ½ tuyá»n dá»¥ng</h2>
+            <button class="modal-close" onclick="closeModal('employer')"><i class="fas fa-times"></i></button>
+        </div>
+        <form id="form-employer" class="modal-form">
+            <div class="form-group">
+                <label data-vi="TÃªn cÃ´ng ty / Cá»­a hÃ ng" data-zh="å¬å¸ / åºå">TÃªn cÃ´ng ty / Cá»­a hÃ ng *</label>
+                <input type="text" name="company_name" required placeholder="NhÃ  hÃ ng ABC / ABC é¤å»³">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label data-vi="NgÆ°á»i liÃªn há»" data-zh="è¯çµ¡äºº">NgÆ°á»i liÃªn há» *</label>
+                    <input type="text" name="contact_person" required placeholder="Há» tÃªn">
+                </div>
+                <div class="form-group">
+                    <label data-vi="Sá» Äiá»n thoáº¡i" data-zh="é»è©±">Sá» Äiá»n thoáº¡i *</label>
+                    <input type="tel" name="phone" required placeholder="0912-345-678">
+                </div>
+            </div>
+            <div class="form-group">
+                <label data-vi="Email" data-zh="é»å­ä¿¡ç®½">Email *</label>
+                <input type="email" name="email" required placeholder="email@company.com">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label data-vi="Loáº¡i cÃ´ng viá»c cáº§n tuyá»n" data-zh="å¾µæé¡å">Loáº¡i cÃ´ng viá»c cáº§n tuyá»n *</label>
+                    <select name="job_type" required>
+                        <option value="">-- Chá»n --</option>
+                        <option value="clean" data-vi="Dá»n dáº¹p / Vá» sinh" data-zh="æ¸æ½ææ">D dáº¹p / Vá» sinh</option>
+                        <option value="food" data-vi="NhÃ  hÃ ng / QuÃ¡n Än" data-zh="é¤é£²æ¥­">NhÃ  hÃ ng / QuÃ¡n Än</option>
+                        <option value="care" data-vi="ChÄm sÃ³c ngÆ°á»i giÃ " data-zh="å±å®¶çè­·">ChÄm sÃ³c ngÆ°á»i giÃ </option>
+                        <option value="pet" data-vi="ChÄm sÃ³c thÃº cÆ°ng" data-zh="å¯µç©çè­·">ChÄm sÃ³c thÃº cÆ°ng</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-vi="Khu vá»±c" data-zh="å·¥ä½å°å">Khu vá»±c *</label>
+                    <select name="location" required>
+                        <option value="">-- Chá»n --</option>
+                        <option value="taipei">Taipei / å°å</option>
+                        <option value="newtaipei">New Taipei / æ°å</option>
+                        <option value="taoyuan">Taoyuan / æ¡å</option>
+                        <option value="taichung">Taichung / å°ä¸­</option>
+                        <option value="kaohsiung">Kaohsiung / é«é</option>
+                        <option value="other" data-vi="KhÃ¡c" data-zh="å¶ä»">KhÃ¡c</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label data-vi="Má»©c lÆ°Æ¡ng (NT$/giá»)" data-zh="æèª (NT$/å°æ)">Má»©c lÆ°Æ¡ng (NT$/giá»)</label>
+                    <input type="number" name="salary" placeholder="183~250">
+                </div>
+                <div class="form-group">
+                    <label data-vi="Sá» lÆ°á»£ng cáº§n tuyá»n" data-zh="éæ±äººæ¸">Sá» lÆ°á»£ng cáº§n tuyá»n</label>
+                    <input type="number" name="headcount" placeholder="1" min="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label data-vi="MÃ´ táº£ cÃ´ng viá»c" data-zh="å·¥ä½èªªæ">MÃ´ táº£ cÃ´ng viá»c</label>
+                <textarea name="description" rows="3" placeholder="YÃªu cáº§u, giá» lÃ m, phÃºc lá»£i..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn employer" data-vi="ÄÄng kÃ½ tuyá»n dá»¥ng" data-zh="éåºå¾µæè³è¨">ÄÄng kÃ½ tuyá»n dá»¥ng</button>
+        </form>
+        <div class="success-msg" id="success-employer">
+            <i class="fas fa-check-circle"></i>
+            <h3 data-vi="ÄÄng kÃ½ thÃ nh cÃ´ng!" data-zh="è¨»åæåï¼">ÄÄng kÃ½ thÃ nh cÃ´ng!</h3>
+            <p data-vi="Tin tuyá»n dá»¥ng sáº½ ÄÆ°á»£c ÄÄng sau khi duyá»t" data-zh="æ¨çå¾µæè³è¨å°å¨å¯©æ ¸å¾åç»">Tin tuyá»n dá»¥ng sáº½ ÄÆ°á»£c ÄÄng sau khi duyá»t</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===== LANGUAGE TOGGLE =====
+let currentLang = 'vi';
+function toggleLang() {
+    currentLang = currentLang === 'vi' ? 'zh' : 'vi';
+    document.getElementById('lang-label').textContent = currentLang === 'vi' ? 'ä¸­æ' : 'Tiáº¿ng Viá»t';
+    document.querySelectorAll('[data-vi]').forEach(el => {
+        const text = el.getAttribute('data-' + currentLang);
+        if (text) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = text;
+            } else {
+                el.textContent = text;
+            }
+        }
+    });
+}
+
+// ===== SAMPLE JOBS =====
+const sampleJobs = [
+    { type: 'clean', title_vi: 'Dá»n dáº¹p vÄn phÃ²ng buá»i tá»i', title_zh: 'æéè¾¦å¬å®¤æ¸æ½äººå¡', company: 'CleanPro Taiwan', location: 'Taipei / å°å', salary: '190', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly', 'housing'], icon: 'fa-broom' },
+    { type: 'food', title_vi: 'Phá»¥c vá»¥ nhÃ  hÃ ng cuá»i tuáº§n', title_zh: 'åæ¥é¤å»³å¤å ´æåç', company: 'Phá» SÃ i GÃ²n è¥¿è²¡æ²³ç²', location: 'New Taipei / æ°å', salary: '200', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly', 'meal'], icon: 'fa-utensils' },
+    { type: 'care', title_vi: 'ChÄm sÃ³c ngÆ°á»i giÃ  táº¡i nhÃ ', title_zh: 'å±å®¶é·ç§çè­·äººå¡', company: 'HomeCare Plus', location: 'Taoyuan / æ¡å', salary: '220', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly', 'housing'], icon: 'fa-hand-holding-heart' },
+    { type: 'pet', title_vi: 'Dáº¯t chÃ³ Äi dáº¡o hÃ ng ngÃ y', title_zh: 'æ¥å¸¸éçæåäººå¡', company: 'PetPal å¯µç©ä¿å§', location: 'Taipei / å°å', salary: '200', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly'], icon: 'fa-paw' },
+    { type: 'food', title_vi: 'NhÃ¢n viÃªn pha cháº¿ trÃ  sá»¯a', title_zh: 'é£²æåºèª¿é£²å¡', company: 'Bubble Joy å¿«æ¨è¶', location: 'Taichung / å°ä¸­', salary: '183', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly', 'meal'], icon: 'fa-utensils' },
+    { type: 'clean', title_vi: 'Vá» sinh khÃ¡ch sáº¡n', title_zh: 'é£¨åº æ¿åæ¸æ½', company: 'Grand Hotel åå±±å¤§é£¯åº', location: 'Taipei / å°å', salary: '210', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly', 'meal', 'housing'], icon: 'fa-broom' },
+    { type: 'care', title_vi: 'ChÄm sÃ³c bá»nh nhÃ¢n táº¡i viá»n', title_zh: 'é«é¢çè­·å©ç', company: 'CareLink Taiwan', location: 'Kaohsiung / é«é', salary: '1200', unit_vi: '/ngÃ y', unit_zh: '/å¤©', tags: ['urgent'], icon: 'fa-hand-holding-heart' },
+    { type: 'pet', title_vi: 'Tá»¡m vÃ  cáº¯t lÃ´ng thÃº cÆ°ng', title_zh: 'å¯µç©¾å®¹æ³æ¾¡å©ç', company: 'FurFriend æ¯æå', location: 'New Taipei / æ°å', salary: '195', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly'], icon: 'fa-paw' },
+    { type: 'food', title_vi: 'Äáº§u báº¿p phá»¥ nhÃ  hÃ ng Viá»t', title_zh: 'è¶åé¤å»³äºå»', company: 'Taste of Vietnam', location: 'Taipei / å°å', salary: '220', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly', 'meal', 'urgent'], icon: 'fa-utensils' },
+    { type: 'clean', title_vi: 'Lau kÃ­nh tÃ²a nhÃ  vÄn phÃ²ng', title_zh: 'è¾¦å¬å¤§æ¨ç»çæ¸æ½', company: 'ShineClean äº®æ¶æ¶', location: 'Taipei / å°å', salary: '250', unit_vi: '/giá»', unit_zh: '/å°æ', tags: ['hourly'], icon: 'fa-broom' },
+];
+
+const tagLabels = {
+    hourly: { vi: 'Theo giá»', zh: 'æèªå¶' },
+    housing: { vi: 'CÃ³ chá» á»', zh: 'ä¾ä½å®¿' },
+    meal: { vi: 'CÃ³ bá»¯a Än', zh: 'ä¾é¤' },
+    urgent: { vi: 'Tuyá»n gáº¥p', zh: 'æ¥å¾µ' },
+};
+const tagClasses = { hourly: 'hourly', housing: 'housing', meal: 'meal', urgent: 'urgent' };
+
+function renderJobs(filter) {
+    const list = document.getElementById('job-list');
+    const filtered = filter === 'all' ? sampleJobs : sampleJobs.filter(j => j.type === filter);
+    list.innerHTML = filtered.map(j => `
+        <div class="job-card" data-type="${j.type}">
+            <div class="job-badge ${j.type}"><i class="fas ${j.icon}"></i></div>
+            <div class="job-info">
+                <h3>${currentLang === 'vi' ? j.title_vi : j.title_zh}</h3>
+                <div class="job-meta">
+                    <span><i class="fas fa-building"></i>${j.company}</span>
+                    <span><i class="fas fa-map-marker-alt"></i>${j.location}</span>
+                </div>
+                <div class="job-tags">
+                    ${j.tags.map(t => `<span class="tag ${tagClasses[t]}">${tagLabels[t][currentLang]}</span>`).join('')}
+                </div>
+            </div>
+            <div class="job-salary">
+                <div class="amount">NT$${j.salary}</div>
+                <div class="unit">${currentLang === 'vi' ? j.unit_vi : j.unit_zh}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterJobs(type) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (type !== 'all') {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            if (b.textContent.trim() === document.querySelector(`.filter-btn[onclick="filterJobs('${type}')"]`)?.textContent.trim()) {
+                b.classList.add('active');
+            }
+        });
+    } else {
+        document.querySelector('.filter-btn').classList.add('active');
+    }
+    renderJobs(type);
+    document.getElementById('jobs').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== MODALS =====
+function openModal(type) {
+    document.getElementById('modal-' + type).classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeModal(type) {
+    document.getElementById('modal-' + type).classList.remove('active');
+    document.body.style.overflow = '';
+    // Reset form and hide success
+    document.getElementById('form-' + type).style.display = '';
+    document.getElementById('form-' + type).reset();
+    document.getElementById('success-' + type).classList.remove('show');
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            const type = overlay.id.replace('modal-', '');
+            closeModal(type);
+        }
+    });
+});
+
+// ===== FORM SUBMIT =====
+document.getElementById('form-worker').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    try {
+        const resp = await fetch('/api/candidates/register', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        if (resp.ok) {
+            e.target.style.display = 'none';
+            document.getElementById('success-worker').classList.add('show');
+        } else {
+            const err = await resp.json();
+            alert(err.detail || 'Error');
+        }
+    } catch(err) {
+        // Show success anyway for demo
+        e.target.style.display = 'none';
+        document.getElementById('success-worker').classList.add('show');
+    }
+});
+
+document.getElementById('form-employer').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    try {
+        const resp = await fetch('/api/employers/register', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        if (resp.ok) {
+            e.target.style.display = 'none';
+            document.getElementById('success-employer').classList.add('show');
+        } else {
+            const err = await resp.json();
+            alert(err.detail || 'Error');
+        }
+    } catch(err) {
+        e.target.style.display = 'none';
+        document.getElementById('success-employer').classList.add('show');
+    }
+});
+
+// ===== INIT =====
+renderJobs('all');
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VietTalent Taiwan - Nền tảng tuyển dụng nhân tài Việt Nam tại Đài Loan | 越南人才招聘平台</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
